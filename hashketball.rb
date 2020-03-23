@@ -1,4 +1,5 @@
 # Write your code here!
+require 'pry'
 def game_hash
 game_hash = {:home => {:team_name => "Brooklyn Nets", :colors => ["Black", "White"], :players => 
 [{:player_name =>"Alan Anderson", :number => 0, :shoe => 16, :points => 22, :rebounds => 12, :assists => 12, :steals => 3, :blocks => 1, :slam_dunks => 1 },
@@ -100,6 +101,78 @@ def big_shoe_rebounds
 end
 return rebounds
 end
+
+
+def most_points_scored
+  most_points = 0
+  player_name = 0
+  game_hash.each do |team_loc, team_info| 
+    team_info[:players].each do |player|
+      if player[:points] > most_points
+        most_points = player[:points]  
+        player_name = player[:player_name] 
+      end
+    end
+  end
+  player_name
+end
+
+def winning_team
+  home_team_total = 0 
+    
+   game_hash[:home].each do |attributes, team_info|
+
+if attributes == :players
+     home_team_total += team_info.sum {|player| player[:points]}
+   end
+ end
+   
+  away_team_total = 0
+   game_hash[:away].each do |attributes, team_info|
+     if attributes == :players
+      away_team_total += team_info.sum{|player| player[:points]}
+  end
+end
+       
+if home_team_total > away_team_total 
+return "Brooklyn Nets"
+else
+return "Charlotte Hornets"
+end
+end 
+
+
+
+
+
+
+def player_with_the_longest_name
+  def player_with_longest_name
+  longest = ''
+  longest_length = 0
+  game_hash.each do |home_away, keys|
+    keys[:players].each do |player|
+      name_length = player[:player_name].length
+      longest, longest_length = player[:player_name], name_length if name_length > longest_length
+    end
+  end
+  return longest
+end
+  # name = ''
+  # binding.pry
+  # longest_name = 0
+  
+  # game_hash.each do |team_loc, team_info|
+  #   team_info[:players].each do |player|
+  #     name = player[:player_name]
+  #       name_length = name.length
+  #       if name_length > longest_name
+  #         return name
+  #     end
+  #   end
+  # end
+end 
+
 
 
 
